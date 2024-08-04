@@ -5,6 +5,7 @@ This repository contains notebook for conducting 10 experiments with diffrent da
 The first 3 algorithms are supported with the number of change points to detect and cost function is seletcted to maximize results
 
 Benchmark uses simple rank system based on F1 score (accuracy is useless metric here bcs of huge number of TN in this evalution method)
+[All datasets come from here](https://www.timeseriesclassification.com/)
 
 # Summary
 
