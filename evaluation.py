@@ -150,7 +150,7 @@ def calculateADT(n, predicted_points, original_points, treshold):
 
         
 def get_evaluation(result, original_points, n):
-    prediction_margin =( n/len(original_points)/8)
+    prediction_margin =( n/len(original_points)/6)
     print(prediction_margin)
     TP,TN,FP,FN = calculate_TP_TN_FP_FN(n,result,original_points,prediction_margin)
     ASC = calculateASC(n,result,original_points,prediction_margin)

@@ -7,6 +7,10 @@ The first 3 algorithms are supported with the number of change points to detect 
 Benchmark uses simple rank system based on F1 score (accuracy is useless metric here bcs of huge number of TN in this evalution method)
 [All datasets come from here](https://www.timeseriesclassification.com/)
 
+# Evaluation methods
+
+The segmentation is here treated as binary classification problem: each point is a change point or not. True positive is considered when change point is placed within margin distance off the orginial change point (the margin is 1/8 of average segment lenght in a dataset). False positive is recorded when change point is either placed within margin which already contains change point or placed apart from any original change point margin. True Negative is just when point outside any original change point margin is considered not a change point. False Negative is recorded when all points where labeled and there is an margin from original point which contains zero predicted change points.
+
 # Summary
 
 Fluss is very efficient algorithm, however it assumes that the regime(segment) contains at least few pattern (patterns are of window size length), if the segemnts cotains less than 6\7 patterns it fails to properly segment time series due to using cac curve. Also its slower than classic change points detection algorithms due to complexity of calculating matrix profile but it can be easily fixed by simply chunking the data.
