@@ -25,7 +25,7 @@ class BenchmarkCaller():
             for index_alg, eval in enumerate(all_evals):
                 for index_metric, row in eval.iterrows():
                     self.result_matrix[i, index_metric, index_alg, iteration] = row[1]
-        i = i+1
+            i = i+1
             #for e in all_evals:
             #    print(e)
             #rpt.display(data, original_points)
