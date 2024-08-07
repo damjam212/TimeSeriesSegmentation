@@ -1,6 +1,7 @@
 import plotly.express as px
 import ruptures as rpt
-
+from tqdm import tqdm
+import numpy as np
 
 class BenchmarkCaller():
     # def __init__(self, experiments_number, algorithms_number, algorithms_tags):
@@ -11,16 +12,23 @@ class BenchmarkCaller():
     #     self.experiments_conducted = 0 
     #     self.algorithms_tags = algorithms_tags
 
-    def __init__(self):
+    def __init__(self, itr):
+        self.result_matrix = np.zeros((10, 7, 4 ,itr), dtype = float)
         self.experiments = []
+        self.itr = itr
     def register_experiment(self,function):
         self.experiments.append(function)
-    def call_experiments(self, seed, block_size = None):
-        for fun in self.experiments:
-            all_evals, data, original_points = fun(seed, block_size)
-            for e in all_evals:
-                print(e)
-            rpt.display(data, original_points)
+    def call_experiments(self, seed, iteration):
+        i = 0 
+        for fun in tqdm(self.experiments):
+            all_evals, data, original_points = fun(seed)
+            for index_alg, eval in enumerate(all_evals):
+                for index_metric, row in eval.iterrows():
+                    self.result_matrix[i, index_metric, index_alg, iteration] = row[1]
+        i = i+1
+            #for e in all_evals:
+            #    print(e)
+            #rpt.display(data, original_points)
     # def add_experiment(self, results):
     #     if self.experiments_conducted == self.experiments_number:
     #         raise ValueError("Niewłaściwa wartość")
@@ -30,7 +38,9 @@ class BenchmarkCaller():
     #     if self.experiments_conducted == self.experiments_number:
     #         self.print_current_results()
 
-    
+    def get_matrix_results(self):
+        return self.result_matrix
+        
     def add_experiment(self, results):
         if self.experiments_conducted == self.experiments_number:
             print("Niewłaściwa wartość")

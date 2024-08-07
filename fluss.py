@@ -18,7 +18,7 @@ class Fluss:
     def __init__(self,L,exclusion_factor):
         self.L=L
         self.exclusion_factor = exclusion_factor
-        self.custom_extraction_zone = 5*L 
+        self.custom_extraction_zone = 3*L 
         self.last_regimes = None
         self.last_cac = None
         self.last_data = None
