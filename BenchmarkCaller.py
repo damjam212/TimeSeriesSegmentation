@@ -12,19 +12,21 @@ class BenchmarkCaller():
     #     self.experiments_conducted = 0 
     #     self.algorithms_tags = algorithms_tags
 
-    def __init__(self, itr):
-        self.result_matrix = np.zeros((10, 7, 4 ,itr), dtype = float)
+    def __init__(self, itr, custom_parameter):
+        self.result_matrix = np.zeros((10, 7, 4 ,itr, custom_parameter), dtype = float)
         self.experiments = []
         self.itr = itr
+        self.custom_parameter = custom_parameter
     def register_experiment(self,function):
         self.experiments.append(function)
-    def call_experiments(self, seed, iteration):
+        
+    def call_experiments(self, seed, iteration, custom_parameter, parameter_number):
         i = 0 
-        for fun in tqdm(self.experiments):
-            all_evals, data, original_points = fun(seed)
+        for fun in (self.experiments):
+            all_evals, data, original_points = fun(seed, custom_parameter)
             for index_alg, eval in enumerate(all_evals):
                 for index_metric, row in eval.iterrows():
-                    self.result_matrix[i, index_metric, index_alg, iteration] = row[1]
+                    self.result_matrix[i, index_metric, index_alg, iteration, parameter_number] = row[1]
             i = i+1
             #for e in all_evals:
             #    print(e)
